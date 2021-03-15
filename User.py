@@ -53,6 +53,11 @@ class User:
 
     def allocate_system(self, assigned_system: sys):
         # add checks to make sure user can have system
+        # check to make sure user has correct priv level for the system
+        # check to make user the user is online
+        # check to make sure the user's organization has access to the system
+        # check to see if enough licenses exist
+        # add checks to make sure user can have system
         assigned_system.set_system_license_count(assigned_system.get_system_license_count() - 1)
         self._assigned_systems.append(assigned_system)
 
