@@ -3,14 +3,17 @@ from System import System as sys
 from typing import List
 
 class User:
-
-    def __init__(self, name: str, role: str, privilege: int, organizations: List[org], online: bool, assigned_systems: List[sys]):
+    def __init__(self, name: str, role: str, privilege: int, organizations: "", online: bool, assigned_systems: List[sys]):
         self._name = name
         self._role = role
         self._privilege_level = privilege
         self._organizations = organizations
         self._online = online
         self._assigned_systems = assigned_systems
+
+    def __del__(self):
+        for i in self._assigned_systems:
+            self._assigned_systems.remove(i)
 
     def get_user_name(self) -> str:
         return self._name
@@ -38,13 +41,6 @@ class User:
 
     def set_user_privilege_level(self, privilege_level: int):
         self._privilege_level = privilege_level
-
-    def add_user_organizations(self, organization: org):
-        self._organizations.append(organization)
-
-    def remove_user_organizations(self, organization: org):
-        # add code to remove all assigned systems from this organization
-        self._organizations.remove(organization)
 
     def set_user_online(self, online: bool):
         if online == False :

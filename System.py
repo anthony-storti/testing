@@ -1,10 +1,8 @@
 from Organization import Organization as org
 from typing import List
 
-
 class System:
-
-    def __init__(self, name: str, type: str, access_level: int, license_count: int, organizations: List[org]):
+    def __init__(self, name: str, type: str, access_level: int, license_count: int, organizations: str):
         self._name = name
         self._type = type
         self._access_level = access_level
@@ -23,7 +21,7 @@ class System:
     def get_system_license_count(self) -> int:
         return self._license_count
 
-    def get_system_organization(self) -> List[org]:
+    def get_system_organization(self) -> str:
         return self._organizations
 
     def set_system_name(self, name: str):
@@ -38,8 +36,6 @@ class System:
     def set_system_license_count(self, license_count: int):
         self._license_count = license_count
 
-    def add_system_organization(self, organizations: org):
-        self._organizations.append(organizations)
+    def set_organization(self, org1: str):
+        self._organizations = org1
 
-    def remove_system_organization(self, organizations: org):
-        self._organizations.remove(organizations)
