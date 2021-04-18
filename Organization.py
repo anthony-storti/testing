@@ -1,5 +1,6 @@
 from typing import List
-
+from System import System
+from User import User
 
 class Organization:
     organization_list = []
@@ -10,6 +11,8 @@ class Organization:
         self._org_type = org_type
         self._department = department
         self.organization_list.append(name)
+        self.systems: List[System] = []
+        self.users: List[User] = []
 
     def __del__(self):
         for i in self._department:
@@ -27,7 +30,7 @@ class Organization:
     def get_org_type(self) -> str:
         return self._org_type
 
-    def get_department(self) -> list[str]:
+    def get_department(self) -> List[str]:
         return self._department
 
     # Setters
@@ -45,3 +48,18 @@ class Organization:
 
     def remove_department(self, dep: str):
         self._department.remove(dep)
+
+    def add_system(self, system: System):
+        self.systems.append(system)
+
+    def remove_system(self, system: System):
+        self.systems.remove(system)
+
+    def add_user(self, user: User):
+        self.users.append(user)
+
+    def get_user(self, idx: int):
+        return self.users[idx]
+
+    def remove_user(self, user: User):
+        self.users.remove(user)

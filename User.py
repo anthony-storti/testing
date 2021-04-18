@@ -10,7 +10,7 @@ class User:
         self._privilege_level = privilege
         self._organizations = organizations
         self._online = online
-        self._assigned_systems = assigned_systems
+        self._assigned_systems = []
         self._available_systems = available_systems
 
     def __del__(self):
@@ -54,6 +54,25 @@ class User:
         else:
             print("The system that you are looking for does not exist")
 
+    def allocate_system_incorrect(self, sys_name: str):
+        s_name = self._find_system(sys_name)
+        if not s_name is None:
+            if self._check_privilege(s_name):
+                if self._online:
+                    if s_name.get_system_license_count() != 0:
+                        self._assigned_systems.append(s_name)
+                        s_name.decrease_license_count()
+                        s_name.add_username_list(self.get_user_name())
+                        print("You have successfully assigned to " + s_name.get_system_name() + "!")
+                    else:
+                        print("Reached the maximum access for this system, please try again later!")
+                else:
+                    print("Please reconnect with internet and try it again!")
+            else:
+                print("Access Denied! Access level does not match.")
+        else:
+            print("The system that you are looking for does not exist")
+
     def de_allocate_system(self, sys_name: str):
         s_name = self._find_system(sys_name)
         s_name.increase_license_count()
@@ -69,6 +88,9 @@ class User:
         else:
             self._online = False
             print("You have been assigned offline.")
+
+    def clear_available_system(self):
+        self._available_systems = []
 
     # Getters
     def get_user_name(self) -> str:
@@ -89,6 +111,11 @@ class User:
     def get_user_assigned_systems(self) -> List[sys]:
         return self._assigned_systems
 
+    def get_available_systems(self):
+        return self._available_systems
+
+
+
     # Setters
     def set_user_name(self, name: str):
         self._name = name
@@ -103,3 +130,7 @@ class User:
         if not online:
             self.terminate()
         self._online = online
+
+    def set_available_systems(self, system: sys):
+        self._available_systems.append(system)
+

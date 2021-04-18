@@ -1,9 +1,12 @@
 from Organization import Organization as org
 from System import System as sys
 from User import User as usr
+from typing import List
 
 # implementing a psydo overriding function with two different ways to initialize the system
-def init_system(o: org, sy: list[sys], sy1: sys, s_str="null"):
+
+
+def init_system(o: org, sy: List[sys], sy1: sys, s_str="null"):
     if s_str == "null":
         for i in range(len(sy)):
             if o.get_department()[i] == "accounting":

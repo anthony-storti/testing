@@ -1,6 +1,9 @@
+from typing import List
+
+
 class System:
     def __init__(self, name: str, s_type: str, access_level: int, license_count: int, organizations: str,
-                 usr_name_on: list[str]):
+                 usr_name_on: List[str]):
         self._name = name
         self._type = s_type
         self._access_level = access_level
@@ -45,7 +48,7 @@ class System:
     def get_system_organization(self) -> str:
         return self._organizations
 
-    def get_username_list(self) -> list[str]:
+    def get_username_list(self) -> List[str]:
         return self._usr_name_on
 
     def get_max_license_number(self) -> int:
@@ -82,3 +85,5 @@ class System:
             self._usr_name_on.remove(username)
         else:
             print("The username you typed does not exist")
+
+
