@@ -19,18 +19,37 @@ class User:
         for i in self._available_systems:
             self._available_systems.remove(i)
 
-    # function prototypes
+    """
+    find system - this call will check if a system is available to a user in their organization
+    :param s_name: string of system name
+    :return system if true, else print system not found to console
+    """
     def _find_system(self, s_name: str) -> sys:
         for s in self._available_systems:
             if s_name == s.get_system_name():
                 return s
         print("System not found!")
 
+    """
+    check privilege - this call will check to see if a user has appropriate privileges 
+    to a certain system
+    :param s_obj: system object to check privileges
+    :return bool: true if appropriate access, false otherwise
+    """
+
     def _check_privilege(self, sys_obj: sys) -> bool:
         if sys_obj.get_system_access_level() == 1:
             return True
         else:
             return self._privilege_level <= sys_obj.get_system_access_level()
+
+    """
+    allocate system - after this call if a user will be allocated a system if they meet the following
+    criteria: appropriate privilege, online status true, not already assigned system, system license available,
+    system is in users available systems
+    :param s_name: string name of system
+    :return nothing, print to console on success or indicate failure
+    """
 
     def allocate_system(self, sys_name: str):
         s_name = self._find_system(sys_name)
@@ -73,11 +92,24 @@ class User:
         else:
             print("The system that you are looking for does not exist")
 
+    """
+    de-allocate system - this call will remove a system from a user, increment the systems license count
+    and remove the user from the list of system usernames
+    :param sys_name: string of system name
+    :return nothing
+    """
+
     def de_allocate_system(self, sys_name: str):
         s_name = self._find_system(sys_name)
         s_name.increase_license_count()
         s_name.remove_username_list(self.get_user_name())
         self._assigned_systems.remove(s_name)
+
+    """
+    terminate- this call will deallocate all systems from a user, and set their status to offline
+    :param none
+    :return nothing, print to console confirmation of termination
+    """
 
     def terminate(self):
         if self._assigned_systems:
@@ -89,10 +121,13 @@ class User:
             self._online = False
             print("You have been assigned offline.")
 
+    ########################################
+    # Getters, Setters, Adders, Removers
+    ########################################
+
     def clear_available_system(self):
         self._available_systems = []
 
-    # Getters
     def get_user_name(self) -> str:
         return self._name
 
@@ -114,9 +149,6 @@ class User:
     def get_available_systems(self):
         return self._available_systems
 
-
-
-    # Setters
     def set_user_name(self, name: str):
         self._name = name
 

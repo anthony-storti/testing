@@ -2,6 +2,7 @@ from typing import List
 from System import System
 from User import User
 
+
 class Organization:
     organization_list = []
 
@@ -11,8 +12,8 @@ class Organization:
         self._org_type = org_type
         self._department = department
         self.organization_list.append(name)
-        self.systems: List[System] = []
-        self.users: List[User] = []
+        self._systems: List[System] = []
+        self._users: List[User] = []
 
     def __del__(self):
         for i in self._department:
@@ -20,7 +21,10 @@ class Organization:
         for i in self.organization_list:
             self.organization_list.remove(i)
 
-    # Getters
+    ########################################
+    # Getters, Setters, Adders, Removers
+    ########################################
+
     def get_org_name(self) -> str:
         return self._name
 
@@ -33,7 +37,9 @@ class Organization:
     def get_department(self) -> List[str]:
         return self._department
 
-    # Setters
+    def get_systems(self) -> List[System]:
+        return self._systems
+
     def set_org_name(self, name: str):
         self._name = name
 
@@ -50,16 +56,16 @@ class Organization:
         self._department.remove(dep)
 
     def add_system(self, system: System):
-        self.systems.append(system)
+        self._systems.append(system)
 
     def remove_system(self, system: System):
-        self.systems.remove(system)
+        self._systems.remove(system)
 
     def add_user(self, user: User):
-        self.users.append(user)
+        self._users.append(user)
 
     def get_user(self, idx: int):
-        return self.users[idx]
+        return self._users[idx]
 
     def remove_user(self, user: User):
-        self.users.remove(user)
+        self._users.remove(user)

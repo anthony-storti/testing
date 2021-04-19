@@ -3,7 +3,15 @@ from System import System as sys
 from User import User as usr
 from typing import List
 
-# implementing a psydo overriding function with two different ways to initialize the system
+
+"""
+init_systems - This helps main create systems tailored for each department of an organization
+:param o: organization to create systems for
+:param sy: a list of systems to assign to the organization
+:param sy1: a system not defined by organization system list
+:param s_str: null for default, or a specific system to be created if supplied
+:return: nothing
+"""
 
 
 def init_system(o: org, sy: List[sys], sy1: sys, s_str="null"):
